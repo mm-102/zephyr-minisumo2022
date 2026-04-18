@@ -1,0 +1,6 @@
+board:
+  name: sumo_6
+  full_name: Minisumo 2022 ESP32-S2
+  vendor: sims
+  socs:
+    - name: esp32s2

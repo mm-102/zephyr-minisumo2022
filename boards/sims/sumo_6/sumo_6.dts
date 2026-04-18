@@ -1,0 +1,165 @@
+/dts-v1/;
+
+#include <espressif/esp32s2/esp32s2_wrover_n4r2.dtsi>
+#include "sumo_6-pinctrl.dtsi"
+#include <zephyr/dt-bindings/input/input-event-codes.h>
+#include <zephyr/dt-bindings/led/led.h>
+#include <espressif/partitions_0x1000_default.dtsi>
+
+/ {
+    model = "Minisumo 2022 ESP32-S2";
+    compatible = "politechnika,minisumo-2022";
+
+    aliases {
+        uart-0 = &uart0;
+        i2c-0 = &i2c0;
+        i2c-1 = &i2c1;
+        sw0 = &start_button;
+        led0 = &led_1;
+        led1 = &led_2;
+        watchdog0 = &wdt0;
+        led-strip = &led_strip;
+    };
+
+    chosen {
+        zephyr,sram = &sram0;
+        zephyr,console = &uart0;
+        zephyr,shell-uart = &uart0;
+        zephyr,flash = &flash0;
+		zephyr,code-partition = &slot0_partition;
+    };
+
+    gpio_keys {
+		compatible = "gpio-keys";
+
+		user_button: user_button {
+			label = "BOOT";
+			gpios = <&gpio0 0 (GPIO_PULL_UP | GPIO_ACTIVE_LOW)>;
+			zephyr,code = <INPUT_KEY_0>;
+		};
+	};
+
+    leds {
+        compatible = "gpio-leds";
+        led_1: led_1 {
+            gpios = <&gpio1 9 GPIO_ACTIVE_HIGH>;  /* IO41 */
+            label = "LED 1";
+        };
+        led_2: led_2 {
+            gpios = <&gpio1 10 GPIO_ACTIVE_HIGH>; /* IO42 */
+            label = "LED 2";
+        };
+    };
+
+    buttons {
+        compatible = "gpio-keys";
+        start_button: start_button {
+            gpios = <&gpio0 45 (GPIO_PULL_UP | GPIO_ACTIVE_LOW)>;
+            label = "Start Button";
+        };
+    };
+
+    sensors {
+        compatible = "gpio-keys";
+        grd1: grd_1 { gpios = <&gpio0 2 GPIO_ACTIVE_HIGH>; label = "GRD1"; };
+        grd2: grd_2 { gpios = <&gpio0 3 GPIO_ACTIVE_HIGH>; label = "GRD2"; };
+        grd3: grd_3 { gpios = <&gpio0 4 GPIO_ACTIVE_HIGH>; label = "GRD3"; };
+        grd4: grd_4 { gpios = <&gpio0 5 GPIO_ACTIVE_HIGH>; label = "GRD4"; };
+    };
+    
+    motors {
+        compatible = "gpio-leds";
+        mot1_l1: mot1_l1 { gpios = <&gpio1 1 GPIO_ACTIVE_HIGH>; }; /* IO33 */
+        mot1_l2: mot1_l2 { gpios = <&gpio1 2 GPIO_ACTIVE_HIGH>; }; /* IO34 */
+        mot1_r1: mot1_r1 { gpios = <&gpio1 3 GPIO_ACTIVE_HIGH>; }; /* IO35 */
+        mot1_r2: mot1_r2 { gpios = <&gpio1 4 GPIO_ACTIVE_HIGH>; }; /* IO36 */
+        mot2_l1: mot2_l1 { gpios = <&gpio1 5 GPIO_ACTIVE_HIGH>; }; /* IO37 */
+        mot2_l2: mot2_l2 { gpios = <&gpio1 6 GPIO_ACTIVE_HIGH>; }; /* IO38 */
+        mot2_r1: mot2_r1 { gpios = <&gpio1 7 GPIO_ACTIVE_HIGH>; }; /* IO39 */
+        mot2_r2: mot2_r2 { gpios = <&gpio1 8 GPIO_ACTIVE_HIGH>; }; /* IO40 */
+    };
+};
+
+&uart0 {
+    status = "okay";
+    current-speed = <115200>;
+    pinctrl-0 = <&uart0_default>;
+    pinctrl-names = "default";
+};
+
+&gpio0 {
+	status = "okay";
+};
+
+&gpio1 {
+	status = "okay";
+};
+
+&timer0 {
+	status = "disabled";
+};
+
+&timer1 {
+	status = "disabled";
+};
+
+&timer2 {
+	status = "disabled";
+};
+
+&timer3 {
+	status = "disabled";
+};
+
+&i2c0 {
+    status = "okay";
+    clock-frequency = <I2C_BITRATE_STANDARD>;
+    pinctrl-0 = <&i2c0_default>;
+    pinctrl-names = "default";
+};
+
+&i2c1 {
+    status = "okay";
+    clock-frequency = <I2C_BITRATE_STANDARD>;
+    pinctrl-0 = <&i2c1_default>;
+    pinctrl-names = "default";
+};
+
+&spi2 {
+    #address-cells = <1>;
+    #size-cells = <0>;
+
+    status = "okay";
+    line-idle-low;
+    pinctrl-0 = <&spim2_default>;
+    pinctrl-names = "default";
+
+    led_strip: ws2812@0 {
+        compatible = "worldsemi,ws2812-spi";
+        reg = <0>;
+        spi-max-frequency = <4000000>;
+
+        chain-length = <1>;
+        color-mapping = <LED_COLOR_ID_GREEN>,
+                        <LED_COLOR_ID_RED>,
+                        <LED_COLOR_ID_BLUE>;
+        spi-one-frame = <0x70>;
+        spi-zero-frame = <0x40>;
+    };
+};
+
+&trng0 {
+	status = "okay";
+};
+
+&wdt0 {
+	status = "okay";
+};
+
+&dac {
+	status = "okay";
+};
+
+&wifi {
+	status = "okay";
+};

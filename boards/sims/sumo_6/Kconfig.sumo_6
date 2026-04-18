@@ -1,0 +1,2 @@
+config BOARD_SUMO_6
+	select SOC_ESP32S2_WROVER_N4R2

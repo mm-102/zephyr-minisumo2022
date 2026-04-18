@@ -1,0 +1,19 @@
+identifier: sumo_6
+name: Minisumo 2022 ESP32-S2
+type: mcu
+arch: xtensa
+toolchain:
+  - zephyr
+supported:
+  - gpio
+  - i2c
+  - uart
+  - pwm
+  - wifi
+  - input
+  - watchdog
+  - counter
+testing:
+  ignore_tags:
+    - bluetooth
+vendor: sims

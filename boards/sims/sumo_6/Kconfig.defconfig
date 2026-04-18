@@ -1,0 +1,6 @@
+if BOARD_SUMO_6
+
+config BOARD
+	default "sumo_6"
+
+endif # BOARD_SUMO_6
