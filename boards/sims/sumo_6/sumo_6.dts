@@ -71,10 +71,8 @@
     };
     
     motors {
-        compatible = "sims,hbridge-motor";
-
         motor1: motor1 {
-            label = "MOTOR1";
+            compatible = "sims,hbridge-motor";
             pwms = <&ledc0 0 2000000 PWM_POLARITY_NORMAL>,
                    <&ledc0 1 2000000 PWM_POLARITY_NORMAL>;
             pwm-names = "l1", "r1";
@@ -84,7 +82,7 @@
         };
 
         motor2: motor2 {
-            label = "MOTOR2";
+            compatible = "sims,hbridge-motor";
             pwms = <&ledc0 2 2000000 PWM_POLARITY_NORMAL>,
                    <&ledc0 3 2000000 PWM_POLARITY_NORMAL>;
             pwm-names = "l1", "r1";
