@@ -4,6 +4,7 @@
 #include <zephyr/kernel.h>
 #include <zephyr/drivers/gpio.h>
 #include <zephyr/drivers/pwm.h>
+#include <zephyr/devicetree.h>
 
 enum motor_operation {
     MOTOR_STOP,

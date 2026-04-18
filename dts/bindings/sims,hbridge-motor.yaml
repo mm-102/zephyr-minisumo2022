@@ -1,0 +1,26 @@
+description: Custom H-Bridge Motor Driver mapping 2 PWMs and 2 GPIOs
+
+compatible: "vendor123,hbridge-motor"
+
+include: [base.yaml]
+
+properties:
+  pwms:
+    type: phandle-array
+    required: true
+    description: PWM pins for L1 and R1
+
+  pwm-names:
+    type: string-array
+    required: true
+    description: Names of the PWM pins (must be "l1", "r1")
+
+  l2-gpios:
+    type: phandle-array
+    required: true
+    description: GPIO pin for L2
+
+  r2-gpios:
+    type: phandle-array
+    required: true
+    description: GPIO pin for R2
