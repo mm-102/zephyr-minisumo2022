@@ -1,6 +1,6 @@
 description: Custom H-Bridge Motor Driver mapping 2 PWMs and 2 GPIOs
 
-compatible: "vendor123,hbridge-motor"
+compatible: "sims,hbridge-motor"
 
 include: [base.yaml]
 
