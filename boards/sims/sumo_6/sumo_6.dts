@@ -182,15 +182,15 @@
 		timer = <0>;
 	};
 	channel1@1 {
-		reg = <0x0>;
+		reg = <0x1>;
 		timer = <0>;
 	};
 	channel2@2 {
-		reg = <0x0>;
+		reg = <0x2>;
 		timer = <0>;
 	};
 	channel3@3 {
-		reg = <0x0>;
+		reg = <0x3>;
 		timer = <0>;
 	};
 };
