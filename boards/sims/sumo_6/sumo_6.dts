@@ -4,6 +4,7 @@
 #include "sumo_6-pinctrl.dtsi"
 #include <zephyr/dt-bindings/input/input-event-codes.h>
 #include <zephyr/dt-bindings/led/led.h>
+#include <zephyr/dt-bindings/pwm/pwm.h>
 #include <espressif/partitions_0x1000_default.dtsi>
 
 / {
@@ -71,6 +72,7 @@
         compatible = "sims,hbridge-motor";
 
         motor1: motor1 {
+            label = "MOTOR1";
             pwms = <&ledc0 0 2000000 PWM_POLARITY_NORMAL>,
                    <&ledc0 1 2000000 PWM_POLARITY_NORMAL>;
             pwm-names = "l1", "r1";
@@ -80,6 +82,7 @@
         };
 
         motor2: motor2 {
+            label = "MOTOR2";
             pwms = <&ledc0 2 2000000 PWM_POLARITY_NORMAL>,
                    <&ledc0 3 2000000 PWM_POLARITY_NORMAL>;
             pwm-names = "l1", "r1";
