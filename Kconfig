@@ -1,0 +1,10 @@
+menu "Custom Board Drivers"
+
+config SUMO_6_MOTOR_DRIVER
+    bool "H-Bridge Motor Driver"
+    default y
+    depends on PWM && GPIO
+    help
+      Enables the custom motor driver for sumo_6.
+
+endmenu

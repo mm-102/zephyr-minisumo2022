@@ -1,0 +1,3 @@
+zephyr_include_directories(include)
+zephyr_library()
+zephyr_library_sources_ifdef(CONFIG_SUMO_6_MOTOR_DRIVER drivers/motor.c)

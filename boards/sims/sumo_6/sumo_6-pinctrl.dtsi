@@ -39,4 +39,14 @@
             pinmux = <SPIM2_MOSI_GPIO21>;
         };
     };
+
+    ledc0_default: ledc0_default {
+        group1 {
+            pinmux = <LEDC_CH0_GPIO33>,
+                     <LEDC_CH1_GPIO35>,
+                     <LEDC_CH2_GPIO37>,
+                     <LEDC_CH3_GPIO39>;
+            output-enable;
+        };
+    };
 };

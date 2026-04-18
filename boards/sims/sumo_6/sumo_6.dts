@@ -8,7 +8,7 @@
 
 / {
     model = "Minisumo 2022 ESP32-S2";
-    compatible = "politechnika,minisumo-2022";
+    compatible = "sims,sumo_6";
 
     aliases {
         uart-0 = &uart0;
@@ -68,15 +68,34 @@
     };
     
     motors {
-        compatible = "gpio-leds";
-        mot1_l1: mot1_l1 { gpios = <&gpio1 1 GPIO_ACTIVE_HIGH>; }; /* IO33 */
-        mot1_l2: mot1_l2 { gpios = <&gpio1 2 GPIO_ACTIVE_HIGH>; }; /* IO34 */
-        mot1_r1: mot1_r1 { gpios = <&gpio1 3 GPIO_ACTIVE_HIGH>; }; /* IO35 */
-        mot1_r2: mot1_r2 { gpios = <&gpio1 4 GPIO_ACTIVE_HIGH>; }; /* IO36 */
-        mot2_l1: mot2_l1 { gpios = <&gpio1 5 GPIO_ACTIVE_HIGH>; }; /* IO37 */
-        mot2_l2: mot2_l2 { gpios = <&gpio1 6 GPIO_ACTIVE_HIGH>; }; /* IO38 */
-        mot2_r1: mot2_r1 { gpios = <&gpio1 7 GPIO_ACTIVE_HIGH>; }; /* IO39 */
-        mot2_r2: mot2_r2 { gpios = <&gpio1 8 GPIO_ACTIVE_HIGH>; }; /* IO40 */
+        compatible = "sims,hbridge-motor";
+
+        motor1: motor1 {
+            pwms = <&ledc0 0 2000000 PWM_POLARITY_NORMAL>,
+                   <&ledc0 1 2000000 PWM_POLARITY_NORMAL>;
+            pwm-names = "l1", "r1";
+
+            l2-gpios = <&gpio1 2 GPIO_ACTIVE_HIGH>;
+            r2-gpios = <&gpio1 4 GPIO_ACTIVE_HIGH>;
+        };
+
+        motor2: motor2 {
+            pwms = <&ledc0 2 2000000 PWM_POLARITY_NORMAL>,
+                   <&ledc0 3 2000000 PWM_POLARITY_NORMAL>;
+            pwm-names = "l1", "r1";
+
+            l2-gpios = <&gpio1 6 GPIO_ACTIVE_HIGH>;
+            r2-gpios = <&gpio1 8 GPIO_ACTIVE_HIGH>;
+        };
+
+        // mot1_l1: mot1_l1 { gpios = <&gpio1 1 GPIO_ACTIVE_HIGH>; }; /* IO33 */
+        // mot1_l2: mot1_l2 { gpios = <&gpio1 2 GPIO_ACTIVE_HIGH>; }; /* IO34 */
+        // mot1_r1: mot1_r1 { gpios = <&gpio1 3 GPIO_ACTIVE_HIGH>; }; /* IO35 */
+        // mot1_r2: mot1_r2 { gpios = <&gpio1 4 GPIO_ACTIVE_HIGH>; }; /* IO36 */
+        // mot2_l1: mot2_l1 { gpios = <&gpio1 5 GPIO_ACTIVE_HIGH>; }; /* IO37 */
+        // mot2_l2: mot2_l2 { gpios = <&gpio1 6 GPIO_ACTIVE_HIGH>; }; /* IO38 */
+        // mot2_r1: mot2_r1 { gpios = <&gpio1 7 GPIO_ACTIVE_HIGH>; }; /* IO39 */
+        // mot2_r2: mot2_r2 { gpios = <&gpio1 8 GPIO_ACTIVE_HIGH>; }; /* IO40 */
     };
 };
 
@@ -96,7 +115,7 @@
 };
 
 &timer0 {
-	status = "disabled";
+	status = "okay";
 };
 
 &timer1 {
@@ -147,6 +166,32 @@
         spi-zero-frame = <0x40>;
     };
 };
+
+&ledc0 {
+	pinctrl-0 = <&ledc0_default>;
+	pinctrl-names = "default";
+	status = "okay";
+	#address-cells = <1>;
+	#size-cells = <0>;
+
+	channel0@0 {
+		reg = <0x0>;
+		timer = <0>;
+	};
+	channel1@1 {
+		reg = <0x0>;
+		timer = <0>;
+	};
+	channel2@2 {
+		reg = <0x0>;
+		timer = <0>;
+	};
+	channel3@3 {
+		reg = <0x0>;
+		timer = <0>;
+	};
+};
+
 
 &trng0 {
 	status = "okay";
