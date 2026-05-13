@@ -3,4 +3,9 @@ if BOARD_SUMO_6
 config BOARD
 	default "sumo_6"
 
+if WIFI
+config WIFI_ESP32
+    default y
+endif
+
 endif # BOARD_SUMO_6
